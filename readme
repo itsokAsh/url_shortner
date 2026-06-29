@@ -1,0 +1,16 @@
+# Scalable URL Shortener App
+## Stack
+
+This project uses the following stack:
+
+- **React** (Frontend)
+- **Node.js** (Backend)
+- **Redis** (Cache & TTL Management)
+- **MongoDB** (Database)
+- **Apache ZooKeeper** (Token Generation)
+- **Nginx** (Reverse Proxy & Load Balancer)
+- **Docker** (Containerization)
+
+## High-level architecture
+<img width="640" alt="High-level architecture" src="./ha.png">
+
