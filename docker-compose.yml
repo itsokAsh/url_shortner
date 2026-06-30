@@ -51,6 +51,7 @@ services:
     depends_on:
       - server
     environment:
+      - VITE_APP_DOCKER_PORT=${VITE_APP_DOCKER_PORT}
       - NODE_SERVER_LOCAL_PORT=${NODE_SERVER_LOCAL_PORT}
       - NGINX_DOCKER_PORT=${NGINX_DOCKER_PORT}
     build:
@@ -58,3 +59,16 @@ services:
       dockerfile: Dockerfile
     ports:
       - ${NGINX_LOCAL_PORT}:${NGINX_DOCKER_PORT}
+  client:
+    depends_on:
+      - nginx
+    environment:
+      - VITE_API_BASE_URL=${VITE_API_BASE_URL}
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    volumes:
+      - ./client:/usr/src/client
+      - /usr/src/client/node_modules
+    ports:
+      - ${VITE_APP_LOCAL_PORT}:${VITE_APP_DOCKER_PORT}

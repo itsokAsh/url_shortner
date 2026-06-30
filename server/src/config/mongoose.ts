@@ -9,12 +9,18 @@ const {
     MONGODB_DOCKER_PORT,
 } = process.env;
 
-const MONGODB_URI:string | undefined = process.env.MONGO_URI ;
 export const connectToMongoDB = async () => {
   try {
-    console.log("Connecting to:", process.env.MONGO_URI);
+    let uri = process.env.MONGO_URI;
+    let displayUri = "MongoDB URI with credentials hidden";
+    if (!uri) {
+      uri = `mongodb://${MONGODB_USER}:${MONGODB_PASSWORD}@${MONGODB_HOST}:${MONGODB_DOCKER_PORT}/${MONGODB_DATABASE}?authSource=admin`;
+      displayUri = `mongodb://${MONGODB_HOST}:${MONGODB_DOCKER_PORT}/${MONGODB_DATABASE}`;
+    }
+    
+    console.log("Connecting to:", displayUri);
 
-    await connect(process.env.MONGO_URI!);
+    await connect(uri!);
 
     console.log("Connected!");
     console.log("readyState:", mongoose.connection.readyState);
