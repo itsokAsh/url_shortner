@@ -58,7 +58,7 @@ flowchart TB
 - **Redis Cache**: Used extensively to minimize database hits. It acts as an in-memory look-aside cache to quickly resolve active URLs and effectively manages short URL expiration (TTL management).
 - **MongoDB**: The primary source of truth, persisting the mapping between long URLs and short tokens.
 
-## System Flow (Senior Dev Breakdown)
+## System Flow
 
 ### 1. URL Shortening (Write Path)
 When a user requests to shorten a long URL, the request hits **Nginx**, which forwards it to one of the **Node.js** replicas. The replica leverages **ZooKeeper** to generate a unique token (collision resistance is key in distributed environments). The system then writes the long-to-short mapping to **MongoDB** and aggressively caches the result in **Redis**.
